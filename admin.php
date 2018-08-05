@@ -2,7 +2,7 @@
 require_once './functions.php';
 header('Content-Type: text/html; charset=utf-8');
 
-if (empty($_SESSION['user'])) {
+if (empty($_SESSION['guest'] == false)) {
     http_response_code(403);
     exit('Авторизуйтесь');
 }
@@ -29,7 +29,7 @@ if (move_uploaded_file($_FILES['test']['tmp_name'], $dest)) {
     <title>Домашнее задание</title>
 </head>
 <body>
-<?php if ($_SESSION['user']['is_guest'] !== true) : ?>
+<?php if ($_SESSION['user'] !== true) : ?>
 <form method="post" enctype="multipart/form-data">
     Отправить: <input name="test" type="file">
     </br>
@@ -38,5 +38,6 @@ if (move_uploaded_file($_FILES['test']['tmp_name'], $dest)) {
 </form>
 <?php endif; ?>
 <p>Привет, <?php echo $_SESSION['user']['username'];?></p>
+<a href="logout.php">Выход</a>
 </body>
 </html>
