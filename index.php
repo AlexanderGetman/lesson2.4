@@ -2,12 +2,21 @@
 require_once './functions.php';
 header('Content-Type: text/html; charset=utf-8');
 
+
 $errors = [];
 if (!empty($_POST)) {
     if (login($_POST ['login'], $_POST ['password'])){
+        $_SESSION['guest'] = false;
         header('Location: admin.php');
     } else {
         $errors[] = 'Неверный логин или пароль';
+    }
+}
+
+if (!empty($_POST)) {
+    if (guestLogin($_POST ['guestlogin'])){
+        $_SESSION['guest'] = true;
+        header('Location: list.php');
     }
 }
 
@@ -49,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <li><?= $error ?></li>
     <?php endforeach;?>
 </ul>
-<p>Авторизуйтесь как пользователь с паролем или войдите как гость без пароля:</p>
+<p>Авторизуйтесь как пользователь с паролем:</p>
 <form id='login' method='post' accept-charset='UTF-8'>
     <fieldset >
         <legend>Логин</legend>
@@ -65,6 +74,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     </fieldset>
 </form>
+
+<p>Гостевой вход без пароля:</p>
+<form id='login' method='post' accept-charset='UTF-8'>
+        <fieldset >
+            <legend>Логин</legend>
+            <input type='hidden' name='submitted' id='submitted' value='1'/>
+
+            <label for='login' >Имя пользователя*:</label>
+            <input type='text' name='guestlogin' id='login'  maxlength="50" />
+
+            <input type='submit' name='Submit' value='Submit' />
+
+        </fieldset>
+    </form>
 <?php if ($showCaptcha): ?>
     <div>
         <label>
