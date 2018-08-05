@@ -4,11 +4,5 @@
     "password": "pass",
     "username": "user",
     "is_guest": false
-  },
-  {
-    "login": "guest",
-    "password": "",
-    "username": "guest",
-    "is_guest": true
   }
 ]
