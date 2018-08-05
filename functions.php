@@ -5,6 +5,17 @@ function login($login, $password) {
     $user = getUser ($login);
     if ($user && $user['password'] == $password) {
         $_SESSION['user'] = $user;
+        $_SESSION['username'] = $user;
+        return true;
+    }
+    return false;
+}
+
+function guestLogin($login) {
+    $user = $_POST ['guestlogin'];
+    if ($user) {
+        $_SESSION['user'] = $user;
+        $_SESSION['username'] = $_SESSION['user'];
         return true;
     }
     return false;
