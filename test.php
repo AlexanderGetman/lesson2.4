@@ -9,7 +9,6 @@ if (!file_exists($filename)) {
 
 $json = file_get_contents($filename);
 $contents = json_decode($json, true);
-//print_r($json);
 $counter = 1;
 $inputName = 'q';
 
@@ -52,6 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </fieldset>
     <input type="submit" placeholder="Отправить"/>
 </form>
-
+<a href="logout.php">Выход</a>
 </body>
 </html>
